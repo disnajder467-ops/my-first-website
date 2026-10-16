@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Forge — Симулятор сборки ПК</title>
+<style>
+:root{--bg:#080d18;--panel:#101a2b;--panel2:#142238;--line:#263955;--text:#edf4ff;--muted:#9aacc6;--cyan:#50d9ff;--green:#67f0b0;--orange:#ffbf69;--red:#ff7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -10%,#17345b 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 Inter,Segoe UI,Arial,sans-serif}button,select{font:inherit}button{cursor:pointer}.app{max-width:1440px;margin:auto;padding:22px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:8px 0 20px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),#7d8bff);border-radius:13px;color:#06101d;font-size:25px;font-weight:900}.brand h1{font-size:22px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.status{display:flex;gap:8px;align-items:center;color:var(--green);font-weight:700}.led{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}.layout{display:grid;grid-template-columns:245px minmax(300px,1fr) 330px;gap:16px;margin-top:18px}.panel{background:linear-gradient(160deg,rgba(20,34,56,.96),rgba(13,23,39,.97));border:1px solid var(--line);border-radius:17px;overflow:hidden;min-width:0}.panel-head{padding:16px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px}.panel-head h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0}.small{font-size:12px;color:var(--muted)}.catalog{padding:12px;display:grid;gap:8px}.part{border:1px solid transparent;background:#0d1728;color:var(--text);padding:12px;border-radius:11px;text-align:left;display:flex;gap:11px;align-items:center;transition:.18s}.part:hover{border-color:#3c7594;transform:translateY(-1px)}.part.active{border-color:var(--cyan);background:#112a40;box-shadow:inset 3px 0 var(--cyan)}.part-icon{font-size:24px;width:34px;text-align:center}.part strong{display:block;font-size:13px}.part span{color:var(--muted);font-size:11px}.center{display:grid;gap:16px;align-content:start}.screen{background:#050a12;border:1px solid #243a55;border-radius:17px;overflow:hidden;box-shadow:0 15px 50px #0004}.screen-top{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#0d1726;border-bottom:1px solid #1e3048}.screen-label{display:flex;gap:8px;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:800}.screen-label i{width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan)}.screen-body{padding:20px;min-height:370px}.screen-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.screen h3{font-size:22px;margin:0 0 5px}.screen p{color:var(--muted);margin:0 0 15px;font-size:13px}.motherboard{min-height:260px;border:1px solid #31516b;border-radius:14px;background:linear-gradient(135deg,#10283a,#0b1726);position:relative;overflow:hidden;padding:14px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}.motherboard:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49%,#1d4960 50%,transparent 51%),linear-gradient(transparent 49%,#1d4960 50%,transparent 51%);background-size:42px 42px;opacity:.35}.socket{position:relative;border:1px dashed #5a7b91;border-radius:9px;display:grid;place-items:center;text-align:center;background:#07121ddc;padding:8px;min-width:0}.socket .emoji{font-size:28px}.socket b{font-size:11px;display:block}.socket small{color:var(--muted);font-size:10px}.socket.filled{border:1px solid var(--green);box-shadow:inset 0 0 20px #67f0b014}.socket.filled small{color:var(--green)}.specbox{display:grid;gap:8px}.spec{padding:10px 12px;border:1px solid #20344b;border-radius:10px;background:#0c1725}.spec span{display:block;font-size:11px;color:var(--muted)}.spec strong{font-size:14px}.progress{height:7px;background:#1c2b3d;border-radius:20px;overflow:hidden;margin-top:6px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:0;transition:width .25s}.controls{padding:16px;display:grid;gap:12px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field select{width:100%;background:#091322;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:11px}.actionrow{display:flex;gap:9px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;background:var(--cyan);color:#04101b}.btn:hover{filter:brightness(1.08)}.btn.secondary{background:#17263a;color:var(--text);border:1px solid var(--line)}.btn.green{background:var(--green);color:#04170f}.console{background:#050a10;border:1px solid #20344b;border-radius:12px;padding:12px;font:12px/1.6 Consolas,monospace;color:#9fc8dc;min-height:112px;max-height:180px;overflow:auto}.console .ok{color:var(--green)}.console .warn{color:var(--orange)}.rightcol{display:grid;gap:16px;align-content:start}.summary{padding:16px}.total{font-size:30px;font-weight:900;letter-spacing:-.04em}.total small{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}.summary-list{display:grid;gap:0;margin-top:12px}.summary-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #203149;font-size:12px}.summary-row span{color:var(--muted)}.summary-row strong{text-align:right}.compat{padding:14px 16px}.compat-line{display:flex;gap:9px;align-items:flex-start;margin:10px 0;font-size:12px}.compat-icon{font-size:16px}.empty{color:var(--muted);font-size:12px;padding:10px 0}.footer{color:#6f839d;text-align:center;font-size:11px;padding:24px 0}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#152b3e;border:1px solid #3c7189;border-radius:12px;padding:12px 18px;opacity:0;pointer-events:none;transition:.25s;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:1050px){.layout{grid-template-columns:210px minmax(280px,1fr)}.rightcol{grid-column:1/-1;grid-template-columns:1fr 1fr}}@media(max-width:700px){.app{padding:12px}.layout{grid-template-columns:1fr}.rightcol{grid-column:auto;grid-template-columns:1fr}.screen-grid{grid-template-columns:1fr}.screen-body{padding:13px}.hero h2{font-size:19px}.motherboard{min-height:230px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">PF</div><div><h1>PC FORGE <span style="color:var(--cyan)">/ LAB</span></h1><p>INTERACTIVE PC BUILD SIMULATOR · BUILD 01.26</p></div></div>
+  <div class="status"><span class="led"></span> СИСТЕМА ГОТОВА</div>
+</header>
+<div class="layout">
+  <aside class="panel">
+    <div class="panel-head"><h2>Каталог деталей</h2><span class="small">01—07</span></div>
+    <div class="catalog" id="catalog"></div>
+  </aside>
+  <main class="center">
+    <section class="screen">
+      <div class="screen-top"><div class="screen-label"><i></i> BUILD CONSOLE <span style="color:var(--muted)">/ LIVE</span></div><span class="small" id="buildState">ОЖИДАНИЕ</span></div>
+      <div class="screen-body">
+        <div class="screen-grid">
+          <div><h3>Собери свою машину.</h3><p>Выбери компонент слева, подбери модель и установи её в виртуальную систему.</p>
+            <div class="motherboard">
+              <div class="socket" id="slot-cpu"><div><div class="emoji">🧠</div><b>CPU / ПРОЦЕССОР</b><small>Слот свободен</small></div></div>
+              <div class="socket" id="slot-gpu"><div><div class="emoji">🎮</div><b>GPU / ВИДЕОКАРТА</b><small>Слот свободен</small></div></div>
+              <div class="socket" id="slot-ram"><div><div class="emoji">🧩</div><b>RAM / ПАМЯТЬ</b><small>Слот свободен</small></div></div>
+              <div class="socket" id="slot-storage"><div><div class="emoji">💾</div><b>SSD / НАКОПИТЕЛЬ</b><small>Слот свободен</small></div></div>
+            </div>
+          </div>
+          <div class="specbox">
+            <div class="spec"><span>УСТАНОВЛЕНО КОМПОНЕНТОВ</span><strong id="installed">0 / 7</strong><div class="progress"><i id="buildProgress"></i></div></div>
+            <div class="spec"><span>ПИТАНИЕ СИСТЕМЫ</span><strong id="powerStatus">Не рассчитано</strong></div>
+            <div class="spec"><span>СОВМЕСТИМОСТЬ</span><strong id="compatStatus">Ожидает сборку</strong></div>
+            <div class="spec"><span>ПРИМЕРНЫЙ FPS В ИГРАХ</span><strong id="fps">—</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2 id="selectedTitle">Выбор компонента</h2><span class="small">COMPONENT CONFIG</span></div>
+      <div class="controls">
+        <div class="field"><label for="modelSelect">МОДЕЛЬ КОМПОНЕНТА</label><select id="modelSelect"></select></div>
+        <div class="actionrow"><button class="btn" id="installBtn">＋ Установить компонент</button><button class="btn secondary" id="removeBtn">Удалить компонент</button></div>
+        <div class="small" id="componentInfo">Выберите категорию слева, чтобы увидеть характеристики.</div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Системная консоль</h2><span class="small">EVENT LOG</span></div>
+      <div class="controls" style="padding-top:12px"><div class="console" id="console" aria-live="polite"><div>PC FORGE BIOS v1.0.26</div><div class="ok">[OK] Симулятор запущен.</div><div>[INFO] Ожидание выбора компонентов...</div></div></div>
+    </section>
+  </main>
+  <aside class="rightcol">
+    <section class="panel">
+      <div class="panel-head"><h2>Итоговая конфигурация</h2><span class="small">REPORT</span></div>
+      <div class="summary"><div class="small">ОРИЕНТИРОВОЧНАЯ СТОИМОСТЬ</div><div class="total" id="total">0 сом <small>всего</small></div><div class="summary-list" id="summaryList"><div class="empty">Пока нет установленных компонентов.</div></div><div class="actionrow" style="margin-top:15px"><button class="btn green" id="reportBtn">Показать характеристики</button><button class="btn secondary" id="resetBtn">Сбросить</button></div></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Диагностика</h2><span class="small">CHECK</span></div>
+      <div class="compat" id="diagnostics"><div class="empty">Установи компоненты, чтобы запустить диагностику.</div></div>
+    </section>
+  </aside>
+</div>
+<div class="footer">PC FORGE LAB · Учебный интерактивный симулятор · Цены и производительность приблизительные</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const parts={
+ cpu:{name:"Процессор",icon:"🧠",slot:"cpu",models:[
+  {name:"AMD Ryzen 5 5600",price:9500,detail:"6 ядер / 12 потоков · AM4 · 65 Вт",socket:"AM4",watts:65,score:70},
+  {name:"AMD Ryzen 7 7800X3D",price:28500,detail:"8 ядер / 16 потоков · AM5 · 120 Вт",socket:"AM5",watts:120,score:96},
+  {name:"Intel Core i5-12400F",price:10500,detail:"6 ядер / 12 потоков · LGA1700 · 65 Вт",socket:"LGA1700",watts:65,score:72}]},
+ board:{name:"Материнская плата",icon:"🟩",slot:"board",models:[
+  {name:"MSI B550M PRO-VDH",price:8500,detail:"AM4 · DDR4 · Micro-ATX",socket:"AM4",ram:"DDR4",watts:45},
+  {name:"ASUS B650M-A",price:14500,detail:"AM5 · DDR5 · Micro-ATX",socket:"AM5",ram:"DDR5",watts:50},
+  {name:"Gigabyte B760M DS3H",price:11500,detail:"LGA1700 · DDR4 · Micro-ATX",socket:"LGA1700",ram:"DDR4",watts:50}]},
+ gpu:{name:"Видеокарта",icon:"🎮",slot:"gpu",models:[
+  {name:"NVIDIA GeForce RTX 4060",price:28000,detail:"8 ГБ VRAM · 115 Вт",watts:115,score:72},
+  {name:"NVIDIA GeForce RTX 4070 SUPER",price:52000,detail:"12 ГБ VRAM · 220 Вт",watts:220,score:92},
+  {name:"AMD Radeon RX 6600",price:22000,detail:"8 ГБ VRAM · 132 Вт",watts:132,score:62}]},
+ ram:{name:"Оперативная память",icon:"🧩",slot:"ram",models:[
+  {name:"16 ГБ DDR4 (2×8)",price:3200,detail:"16 ГБ · DDR4 · двухканальный режим",capacity:16,type:"DDR4",watts:8},
+  {name:"32 ГБ DDR4 (2×16)",price:5600,detail:"32 ГБ · DDR4 · двухканальный режим",capacity:32,type:"DDR4",watts:8},
+  {name:"32 ГБ DDR5 (2×16)",price:7800,detail:"32 ГБ · DDR5 · двухканальный режим",capacity:32,type:"DDR5",watts:10},
+  {name:"64 ГБ DDR5 (2×32)",price:14500,detail:"64 ГБ · DDR5 · двухканальный режим",capacity:64,type:"DDR5",watts:12}]},
+ storage:{name:"SSD-накопитель",icon:"💾",slot:"storage",models:[
+  {name:"SSD SATA 480 ГБ",price:2200,detail:"480 ГБ · SATA III",capacity:480,watts:4},
+  {name:"NVMe SSD 1 ТБ",price:4800,detail:"1 ТБ · M.2 NVMe",capacity:1000,watts:5},
+  {name:"NVMe SSD 2 ТБ",price:8200,detail:"2 ТБ · M.2 NVMe",capacity:2000,watts:5}]},
+ psu:{name:"Блок питания",icon:"⚡",slot:"psu",models:[
+  {name:"550 Вт 80+ Bronze",price:4200,detail:"550 Вт · сертификат 80+ Bronze",capacity:550,watts:0},
+  {name:"650 Вт 80+ Gold",price:6800,detail:"650 Вт · сертификат 80+ Gold",capacity:650,watts:0},
+  {name:"850 Вт 80+ Gold",price:10500,detail:"850 Вт · сертификат 80+ Gold",capacity:850,watts:0}]},
+ case:{name:"Корпус",icon:"🖥️",slot:"case",models:[
+  {name:"DeepCool Matrexx 40",price:3800,detail:"Micro-ATX · сетчатая передняя панель",watts:0},
+  {name:"NZXT H5 Flow",price:7800,detail:"ATX · воздушный поток",watts:0},
+  {name:"Корпус с панорамным стеклом",price:6500,detail:"Micro-ATX · RGB-подсветка",watts:0}]}
+};
+const order=["cpu","board","gpu","ram","storage","psu","case"];let selected="cpu";const build={};
+const $=id=>document.getElementById(id);
+function log(msg,kind=""){const d=document.createElement("div");if(kind)d.className=kind;d.textContent=`[${new Date().toLocaleTimeString("ru-RU")}] ${msg}`;$("console").appendChild(d);$("console").scrollTop=$("console").scrollHeight}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
+function renderCatalog(){const c=$("catalog");c.innerHTML="";order.forEach(k=>{const p=parts[k],b=document.createElement("button");b.className="part"+(k===selected?" active":"");b.innerHTML=`<div class="part-icon">${p.icon}</div><div><strong>${p.name}</strong><span>${build[k]?"Установлено ✓":"Выбрать компонент"}</span></div>`;b.onclick=()=>{selected=k;renderCatalog();renderSelect()};c.appendChild(b)})}
+function renderSelect(){const p=parts[selected];$("selectedTitle").textContent=p.name;$("modelSelect").innerHTML=p.models.map((m,i)=>`<option value="${i}">${m.name} — ${m.price.toLocaleString("ru-RU")} сом</option>`).join("");updateInfo()}
+function model(){return parts[selected].models[+$("modelSelect").value]}
+function updateInfo(){const m=model();$("componentInfo").textContent=m.detail+" · Цена: "+m.price.toLocaleString("ru-RU")+" сом"}
+function install(){const m=model();build[selected]={...m,category:selected,categoryName:parts[selected].name};log(`${parts[selected].name}: ${m.name} ${build[selected]?"— выбрано":" "}`,"ok");build[selected]={...m,category:selected,categoryName:parts[selected].name};renderCatalog();renderAll();toast("Компонент установлен")}
+function removePart(){if(build[selected]){delete build[selected];log(`Компонент «${parts[selected].name}» удалён.`,"warn");renderCatalog();renderAll();toast("Компонент удалён")}else toast("Этот компонент ещё не установлен")}
+function diagnose(){const a=[];if(!build.cpu)a.push(["⚠️","Не установлен процессор."]);if(!build.board)a.push(["⚠️","Не установлена материнская плата."]);if(!build.ram)a.push(["⚠️","Не установлена оперативная память."]);if(!build.storage)a.push(["ℹ️","Нет накопителя — установить ОС будет некуда."]);if(build.cpu&&build.board&&build.cpu.socket!==build.board.socket)a.push(["❌",`Несовместимый сокет: CPU ${build.cpu.socket}, плата ${build.board.socket}.`]);if(build.ram&&build.board&&build.ram.type!==build.board.ram)a.push(["❌",`Тип памяти ${build.ram.type} не совпадает с платой ${build.board.ram}.`]);const watts=Object.values(build).reduce((s,x)=>s+(x.watts||0),0);if(build.psu&&build.psu.capacity<watts*1.35)a.push(["⚠️",`Блок питания ${build.psu.capacity} Вт может быть слабым (расчётная нагрузка ~${watts} Вт).`]);if(!a.length)a.push(["✅","Критических проблем по доступным проверкам не найдено."]);$("diagnostics").innerHTML=a.map(x=>`<div class="compat-line"><span class="compat-icon">${x[0]}</span><span>${x[1]}</span></div>`).join("");$("powerStatus").textContent=build.psu?`${build.psu.capacity} Вт`:"Не выбран";const installed=Object.keys(build).length;$("installed").textContent=`${installed} / 7`;$("buildProgress").style.width=(installed/7*100)+"%";$("buildState").textContent=installed===7?"СБОРКА ЗАВЕРШЕНА":installed?"СБОРКА":"ОЖИДАНИЕ";const compatible=build.cpu&&build.board&&build.cpu.socket===build.board.socket&&(!build.ram||!build.board||build.ram.type===build.board.ram);$("compatStatus").textContent=compatible?"Совместима ✓":(build.cpu&&build.board||build.ram&&build.board)?"Есть несоответствия":"Ожидает сборку";const gpu=build.gpu?.score||0,cpu=build.cpu?.score||0;$("fps").textContent=gpu&&cpu?`${Math.round(35+gpu*.85+cpu*.3)}–${Math.round(55+gpu*1.4+cpu*.45)} FPS*`:"—";$("total").innerHTML=Object.values(build).reduce((s,x)=>s+x.price,0).toLocaleString("ru-RU")+" сом <small>всего</small>";$("summaryList").innerHTML=Object.keys(build).length?order.filter(k=>build[k]).map(k=>`<div class="summary-row"><span>${parts[k].name}</span><strong>${build[k].name}</strong></div>`).join(""):'<div class="empty">Пока нет установленных компонентов.</div>'}
+function renderAll(){renderSelect();renderCatalog();diagnose()}
+$("modelSelect").addEventListener("change",updateInfo);$("installBtn").addEventListener("click",install);$("removeBtn").addEventListener("click",removePart);$("resetBtn").addEventListener("click",()=>{Object.keys(build).forEach(k=>delete build[k]);log("Конфигурация очищена.","warn");renderAll();toast("Сборка сброшена")});$("reportBtn").addEventListener("click",()=>{const lines=order.filter(k=>build[k]).map(k=>`${parts[k].name}: ${build[k].name} — ${build[k].price.toLocaleString("ru-RU")} сом`);if(!lines.length){toast("Сначала установи хотя бы один компонент");return}const watts=Object.values(build).reduce((s,x)=>s+(x.watts||0),0);lines.push("",`Итого: ${Object.values(build).reduce((s,x)=>s+x.price,0).toLocaleString("ru-RU")} сом`,`Расчётная нагрузка: около ${watts} Вт`,`ОЗУ: ${build.ram?.capacity?build.ram.capacity+" ГБ":"не установлена"}`,`SSD: ${build.storage?.capacity?build.storage.capacity+" ГБ":"не установлен"}`,`Процессор: ${build.cpu?.name||"не установлен"}`,`Видеокарта: ${build.gpu?.name||"не установлена"}`,"","* FPS — грубая демонстрационная оценка, не результат реального теста.");const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="pc-build-report.txt";a.click();URL.revokeObjectURL(url);log("Отчёт о конфигурации подготовлен.");toast("Отчёт скачивается")});
+renderCatalog();renderSelect();renderAll();
+</script>
+</body>
+</html>
